@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register | CricPulse API</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%234f46e5'/><stop offset='100%25' stop-color='%23db2777'/></linearGradient></defs><rect width='100' height='100' rx='24' fill='url(%23g)'/><text x='50' y='67' font-size='52' font-family='Arial,sans-serif' font-weight='bold' text-anchor='middle' fill='white'>R</text></svg>">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<style>
+body{background:linear-gradient(135deg,#e0e7ff,#fce7f3,#cffafe,#fef3c7);background-size:400% 400%;animation:bg 18s ease infinite}
+@keyframes bg{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.card{animation:rise .6s ease both}@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 py-10 text-slate-800 font-sans antialiased">
+<div class="card w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
+  <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-6 text-center">
+    <a href="/" class="inline-flex items-center gap-2 text-white font-extrabold text-xl">
+      <span class="h-9 w-9 bg-white/20 rounded-lg flex items-center justify-center">&lt;/&gt;</span> CricPulseApi
+    </a>
+    <h1 class="text-white text-2xl font-black mt-3">Create your account</h1>
+    <p class="text-indigo-100 text-sm">Register karo aur apni API key pao</p>
+  </div>
+
+  <form action="/perform_registration" method="post" class="p-6 space-y-4">
+    <div>
+      <label for="name" class="text-sm font-semibold">Name</label>
+      <input id="name" name="user_ka_name" type="text" required placeholder="Rahul Sharma"
+        class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+    <div>
+      <label for="email" class="text-sm font-semibold">Email</label>
+      <input id="email" name="user_ka_email" type="email" required placeholder="you@example.com"
+        class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+    <div>
+      <label for="pw" class="text-sm font-semibold">Password <span class="text-slate-400 font-normal">(min 6 characters)</span></label>
+      <input id="pw" name="user_ka_password" type="password" required minlength="6" placeholder="••••••••"
+        class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+
+    {% if message %}
+    <p class="text-sm rounded-lg px-3 py-2 bg-rose-50 text-rose-700 font-medium">{{ message }}</p>
+    {% endif %}
+
+    <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-pink-600 hover:scale-[1.02] transition text-white font-bold py-2.5 rounded-lg shadow-lg shadow-red-500/30">
+      Register
+    </button>
+    <p class="text-center text-sm text-slate-600">Pehle se account hai? <a href="/login" class="text-indigo-600 font-semibold hover:underline">Login karo</a></p>
+  </form>
+</div>
+</body>
+</html>

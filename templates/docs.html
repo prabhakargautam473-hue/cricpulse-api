@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Documentation | CricPulse API</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+ <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%234f46e5'/><stop offset='100%25' stop-color='%23db2777'/></linearGradient></defs><rect width='100' height='100' rx='24' fill='url(%23g)'/><text x='50' y='66' font-size='48' font-family='monospace' font-weight='bold' text-anchor='middle' fill='white'>{}</text></svg>">
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{background:linear-gradient(135deg,#e0e7ff,#fce7f3,#cffafe,#fef3c7);background-size:400% 400%;animation:bg 18s ease infinite}
+@keyframes bg{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.nav-link{position:relative;color:#1e293b;font-weight:600;transition:color .2s}
+.nav-link::after{content:'';position:absolute;left:0;bottom:-4px;height:3px;width:0;border-radius:9999px;background:linear-gradient(90deg,#ef4444,#6366f1);transition:width .3s}
+.nav-link:hover{color:#dc2626}.nav-link:hover::after{width:100%}
+.dd{position:relative}
+.dd-menu{position:absolute;top:100%;left:0;width:270px;max-height:70vh;overflow-y:auto;background:#fff;border-radius:12px;box-shadow:0 20px 40px rgba(99,102,241,.3);padding:8px;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s}
+.dd:hover .dd-menu,.dd:focus-within .dd-menu{opacity:1;visibility:visible;transform:none}
+.dd-menu a{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;color:#1e293b;font-size:14px;font-weight:600}
+.dd-menu a:hover{background:linear-gradient(90deg,#fee2e2,#e0e7ff);color:#b91c1c}
+.m-get{background:#10b981}
+.side a.active{background:#fff;color:#dc2626;font-weight:700;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.tab.on{background:#fff;color:#4f46e5}
+.fade{animation:fade .5s ease both}@keyframes fade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body class="text-slate-800 font-sans antialiased">
+
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur shadow-md border-b-4 border-transparent" style="border-image:linear-gradient(90deg,#ef4444,#f59e0b,#10b981,#3b82f6,#a855f7) 1">
+ <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+  <a href="/" class="flex items-center space-x-3">
+   <div class="h-9 w-9 bg-gradient-to-br from-red-500 to-pink-600 rounded-lg flex items-center justify-center font-bold text-xl text-white">&lt;/&gt;</div>
+   <span class="font-extrabold text-xl text-slate-900">CricPulse<span class="text-red-500">Api</span></span>
+  </a>
+  <div class="hidden md:flex items-center space-x-8">
+   <a href="/" class="nav-link">Home</a>
+   <div class="dd">
+    <button class="nav-link" style="color:#dc2626">Documentation <i class="fas fa-chevron-down text-xs ml-1"></i></button>
+    <div class="dd-menu" id="navMenu"></div>
+   </div>
+   <a href="/#benefits" class="nav-link">Benefits</a>
+   <a href="/#audience" class="nav-link">Who It's For</a>
+  </div>
+  <button class="bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm font-bold px-4 py-2 rounded-lg"><i class="fas fa-key mr-2"></i>Get API Key</button>
+ </div>
+</nav>
+
+<header class="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 py-12 px-4 text-center">
+ <h1 class="text-3xl sm:text-4xl font-black text-white">API Documentation</h1>
+ <p class="text-indigo-100 mt-2">13 endpoints for teams, players, records, head-to-head and caps.</p>
+ <div class="inline-block mt-5 bg-slate-900 text-emerald-300 font-mono text-sm px-4 py-2 rounded-lg">Base URL: <span id="base"></span></div>
+</header>
+
+<div class="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-4 gap-8">
+ <aside class="lg:sticky lg:top-24 self-start">
+  <div class="side bg-gradient-to-b from-indigo-600 to-purple-700 rounded-xl p-3 space-y-1 text-indigo-50 text-sm" id="side">
+   <p class="text-xs font-bold uppercase tracking-wider px-2 py-1">Start</p>
+   <a href="#start" class="block px-3 py-2 rounded-md hover:bg-white/20">Getting Started</a>
+   <p class="text-xs font-bold uppercase tracking-wider px-2 pt-3 pb-1">Endpoints</p>
+  </div>
+ </aside>
+ <main class="lg:col-span-3 space-y-8" id="main">
+  <section id="start" class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-amber-400">
+   <h2 class="text-2xl font-extrabold">Getting Started</h2>
+   <p class="text-slate-600 mt-2 text-sm">Saari APIs <b>GET</b> requests hain aur JSON return karti hain. Parameters URL mein query string ke roop mein bhejo, jaise <code class="bg-slate-100 px-1 rounded">?team=Mumbai%20Indians</code>. Naam mein space ho to <code class="bg-slate-100 px-1 rounded">%20</code> use karo.</p>
+   <pre class="bg-slate-900 text-emerald-400 text-xs font-mono p-3 rounded mt-3 overflow-x-auto" id="startEx"></pre>
+   <h3 class="font-bold mt-4 text-sm">Common errors</h3>
+   <div class="grid sm:grid-cols-2 gap-2 mt-2 text-sm">
+    <div class="bg-rose-50 rounded p-2"><b>400</b> Parameter missing ya galat</div>
+    <div class="bg-sky-50 rounded p-2"><b>404</b> Endpoint ya data nahi mila</div>
+    <div class="bg-amber-50 rounded p-2"><b>500</b> Server error</div>
+    <div class="bg-violet-50 rounded p-2"><b>429</b> Rate limit (agar lagayi ho)</div>
+   </div>
+  </section>
+ </main>
+</div>
+
+<footer class="bg-slate-900 py-8 text-center text-xs text-slate-300">&copy; 2026 CricPulse API. All rights reserved.</footer>
+
+<script>
+// Jis server se page khula hai wahi base URL ban jayega (local pe http://127.0.0.1:8080)
+const BASE=window.location.origin;
+const P=(n,t,r,d)=>({n,t,r,d});
+const team=P("team","string",true,"Team ka naam, e.g. Mumbai Indians");
+const batter=P("batter","string",true,"Batter ka naam, e.g. V Kohli");
+const bowler=P("bowler","string",true,"Bowler ka naam, e.g. JJ Bumrah");
+
+// NOTE: res ke sample values apne asli output se replace kar lena
+const APIS=[
+{id:"teams",title:"Teams API",path:"/api/teams",ex:"/api/teams",
+ d:"Saari IPL teams ki list.",params:[],
+ res:{teams:["Chennai Super Kings","Mumbai Indians","Royal Challengers Bangalore"]}},
+{id:"players",title:"Players API",path:"/api/players",ex:"/api/players",
+ d:"Saare players ki list.",params:[],
+ res:{players:["V Kohli","RG Sharma","MS Dhoni"]}},
+{id:"team-record",title:"Team Record API",path:"/api/teamrecord",ex:"/api/teamrecord?team=Mumbai%20Indians",
+ d:"Ek team ka overall record: matches, wins, losses.",params:[team],
+ res:{team:"Mumbai Indians",matches:261,won:143,lost:112}},
+{id:"team-against-record",title:"Team Against Record API",path:"/api/teamagainstrecord",ex:"/api/teamagainstrecord?team=Mumbai%20Indians",
+ d:"Ek team ka baaki saari teams ke khilaf record.",params:[team],
+ res:{team:"Mumbai Indians",against:{"Chennai Super Kings":{matches:36,won:20,lost:16}}}},
+{id:"team-vs-team",title:"Team vs Team API",path:"/api/teamvteam",ex:"/api/teamvteam?team=Mumbai%20Indians&team2=Chennai%20Super%20Kings",
+ d:"Do teams ka head-to-head record.",
+ params:[team,P("team2","string",true,"Dusri team ka naam")],
+ res:{team1:"Mumbai Indians",team2:"Chennai Super Kings",matches:36,team1_wins:20,team2_wins:16}},
+{id:"batter-record",title:"Batter Record API",path:"/api/batterrecord",ex:"/api/batterrecord?batter=V%20Kohli",
+ d:"Batter ke overall stats.",params:[batter],
+ res:{batter:"V Kohli",runs:8004,average:38.67,strike_rate:131.97}},
+{id:"batter-vs-team",title:"Batter vs Team API",path:"/api/battervteamrecord",ex:"/api/battervteamrecord?batter=V%20Kohli",
+ d:"Batter ka har team ke khilaf record.",params:[batter],
+ res:{batter:"V Kohli",against:{"Chennai Super Kings":{runs:1053,average:37.6}}}},
+{id:"bowler-record",title:"Bowler API",path:"/api/bowler",ex:"/api/bowler?bowler=JJ%20Bumrah",
+ d:"Bowler ke overall stats.",params:[bowler],
+ res:{bowler:"JJ Bumrah",wickets:165,economy:7.3}},
+{id:"bowler-vs-team",title:"Bowler vs Team API",path:"/api/bowlervteamrecord",ex:"/api/bowlervteamrecord?bowler=JJ%20Bumrah",
+ d:"Bowler ka har team ke khilaf record.",params:[bowler],
+ res:{bowler:"JJ Bumrah",against:{"Kolkata Knight Riders":{wickets:24,economy:7.1}}}},
+{id:"batter-vs-batter",title:"Batter vs Batter API",path:"/api/battervbatter",ex:"/api/battervbatter?batter1=V%20Kohli&batter2=RG%20Sharma",
+ d:"Do batters ki comparison.",
+ params:[P("batter1","string",true,"Pehle batter ka naam"),P("batter2","string",true,"Dusre batter ka naam")],
+ res:{batter1:{name:"V Kohli",runs:8004},batter2:{name:"RG Sharma",runs:6628}}},
+{id:"bowler-vs-bowler",title:"Bowler vs Bowler API",path:"/api/bowlervbowler",ex:"/api/bowlervbowler?bowler1=JJ%20Bumrah&bowler2=Rashid%20Khan",
+ d:"Do bowlers ki comparison.",
+ params:[P("bowler1","string",true,"Pehle bowler ka naam"),P("bowler2","string",true,"Dusre bowler ka naam")],
+ res:{bowler1:{name:"JJ Bumrah",wickets:165},bowler2:{name:"Rashid Khan",wickets:149}}},
+{id:"orange-cap",title:"Orange Cap Holder API",path:"/api/orangecapholder",ex:"/api/orangecapholder",
+ d:"Orange Cap holder (sabse zyada runs).",params:[],
+ res:{player:"Sai Sudharsan",team:"GT",runs:759}},
+{id:"purple-cap",title:"Purple Cap Holder API",path:"/api/purplecapholder",ex:"/api/purplecapholder",
+ d:"Purple Cap holder (sabse zyada wickets).",params:[],
+ res:{player:"Prasidh Krishna",team:"GT",wickets:25}}
+];
+
+document.getElementById("base").textContent=BASE;
+document.getElementById("startEx").textContent=`GET ${BASE}/api/teams`;
+const side=document.getElementById("side"),main=document.getElementById("main"),nav=document.getElementById("navMenu");
+const badge='<span class="m-get text-white text-[10px] font-bold px-1.5 py-0.5 rounded">GET</span>';
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+APIS.forEach(a=>{
+  side.insertAdjacentHTML("beforeend",`<a href="#${a.id}" data-id="${a.id}" class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/20 transition">${badge} ${a.title.replace(" API","")}</a>`);
+  nav.insertAdjacentHTML("beforeend",`<a href="#${a.id}">${badge} ${a.title}</a>`);
+  const url=BASE+a.ex;
+  const code={
+    cURL:`curl "${url}"`,
+    Python:`import requests\n\nr = requests.get("${url}")\nprint(r.json())`,
+    JavaScript:`const res = await fetch("${url}");\nconsole.log(await res.json());`
+  };
+  const rows=a.params.length
+    ? a.params.map(p=>`<tr class="border-t"><td class="py-2 pr-3 font-mono text-indigo-600">${p.n}</td><td class="pr-3 text-slate-500">${p.t}</td><td class="pr-3">${p.r?'<span class="text-rose-600 font-bold">required</span>':'<span class="text-slate-400">optional</span>'}</td><td class="text-slate-600">${p.d}</td></tr>`).join("")
+    : `<tr class="border-t"><td colspan="4" class="py-2 text-slate-500">Is API ko koi parameter nahi chahiye.</td></tr>`;
+  const tabs=Object.keys(code).map((k,i)=>`<button class="tab ${i?'':'on'} text-slate-200 text-xs font-semibold px-3 py-1 rounded" data-k="${k}">${k}</button>`).join("");
+  main.insertAdjacentHTML("beforeend",`
+  <section id="${a.id}" class="fade bg-white rounded-xl shadow-lg p-6 border-t-4 border-indigo-400" data-code='${JSON.stringify(code).replace(/'/g,"&#39;")}' data-url="${a.ex}">
+   <h2 class="text-2xl font-extrabold text-slate-900">${a.title}</h2>
+   <p class="text-slate-600 text-sm mt-1">${a.d}</p>
+   <div class="flex items-center gap-2 mt-4 bg-slate-100 rounded-lg p-2 font-mono text-sm overflow-x-auto">${badge} <span>${a.path}</span></div>
+   <h3 class="font-bold text-sm mt-5 mb-1">Parameters</h3>
+   <div class="overflow-x-auto"><table class="text-sm w-full text-left"><thead><tr class="text-xs uppercase text-slate-400"><th>Name</th><th>Type</th><th></th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></div>
+   <h3 class="font-bold text-sm mt-5 mb-1">Example request</h3>
+   <div class="bg-slate-900 rounded-lg overflow-hidden">
+    <div class="bg-slate-800 px-3 py-2 flex items-center justify-between"><div class="flex gap-1">${tabs}</div>
+     <div class="flex gap-3"><button class="try text-xs font-bold text-amber-300 hover:text-amber-200"><i class="fas fa-play mr-1"></i>Try it</button><button class="copy text-xs text-slate-300 hover:text-white"><i class="far fa-copy mr-1"></i>Copy</button></div></div>
+    <pre class="p-3 text-xs font-mono text-emerald-300 overflow-x-auto code">${esc(code.cURL)}</pre>
+   </div>
+   <h3 class="font-bold text-sm mt-5 mb-1">Sample response (200 OK)</h3>
+   <pre class="bg-slate-900 text-sky-300 text-xs font-mono p-3 rounded-lg overflow-x-auto">${esc(JSON.stringify(a.res,null,2))}</pre>
+   <div class="live hidden">
+    <h3 class="font-bold text-sm mt-5 mb-1">Live response</h3>
+    <pre class="bg-slate-900 text-amber-200 text-xs font-mono p-3 rounded-lg overflow-auto max-h-80 live-out"></pre>
+   </div>
+  </section>`);
+});
+
+// language tabs + copy + try it
+main.addEventListener("click",async e=>{
+  const sec=e.target.closest("section[data-code]"); if(!sec) return;
+  const code=JSON.parse(sec.dataset.code), pre=sec.querySelector(".code");
+  const t=e.target.closest(".tab");
+  if(t){sec.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));t.classList.add("on");pre.textContent=code[t.dataset.k];}
+  const c=e.target.closest(".copy");
+  if(c){navigator.clipboard.writeText(pre.textContent).then(()=>{c.innerHTML='<i class="fas fa-check mr-1"></i>Copied';setTimeout(()=>c.innerHTML='<i class="far fa-copy mr-1"></i>Copy',1500)}).catch(()=>{})}
+  const tr=e.target.closest(".try");
+  if(tr){
+    const box=sec.querySelector(".live"),out=sec.querySelector(".live-out");
+    box.classList.remove("hidden");out.textContent="Loading...";
+    try{
+      const r=await fetch(sec.dataset.url);
+      const txt=await r.text();
+      let shown=txt;try{shown=JSON.stringify(JSON.parse(txt),null,2)}catch(_){}
+      out.textContent=`HTTP ${r.status}\n\n`+shown;
+    }catch(err){out.textContent="Request fail ho gayi: "+err.message}
+  }
+});
+
+// sidebar highlight on scroll
+const links=[...document.querySelectorAll("#side a[data-id]")];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle("active",l.dataset.id===e.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+APIS.forEach(a=>io.observe(document.getElementById(a.id)));
+</script>
+</body>
+</html>
