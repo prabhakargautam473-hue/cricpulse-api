@@ -4,9 +4,9 @@ from collections import OrderedDict
 
 
 #ipl_matches = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRy2DUdUbaKx_Co9F0FSnIlyS-8kp4aKv_I0-qzNeghiZHAI_hw94gKG22XTxNJHMFnFVKsO4xWOdIs/pub?gid=1655759976&single=true&output=csv"
-matches=pd.read_csv("ipl_matches.csv")
+matches=pd.read_csv("IPL_Matches.csv")
 #ipl_ball = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRu6cb6Pj8C9elJc5ubswjVTObommsITlNsFy5X0EiBY7S-lsHEUqx3g_M16r50Ytjc0XQCdGDyzE_Y/pub?output=csv"
-ipl=pd.read_csv("ipl_ball.csv")
+ipl=pd.read_csv("ipl_Ball.csv")
 
 def teamsapi():
     teams=list(set(list(matches["Team1"]) + list(matches["Team2"])))
